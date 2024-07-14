@@ -1,8 +1,8 @@
-import * as anchor from "@coral-xyz/anchor";
-import { Program } from "@coral-xyz/anchor";
-import { DaoVotingProgram } from "../target/types/dao_voting_program";
+import * as anchor from '@coral-xyz/anchor';
+import { Program } from '@coral-xyz/anchor';
+import { DaoVotingProgram } from '../target/types/dao_voting_program';
 
-describe("dao-voting-program", () => {
+describe('dao-voting-program', () => {
   anchor.setProvider(anchor.AnchorProvider.env());
 
   const provider = anchor.AnchorProvider.env();
@@ -11,8 +11,8 @@ describe("dao-voting-program", () => {
   const wallet = provider.wallet;
 
   let proposal = {
-    title: "test",
-    description: "test desc",
+    title: 'test',
+    description: 'test desc',
     creator: wallet.publicKey,
     yesVotes: 0,
     noVotes: 0,
@@ -30,13 +30,13 @@ describe("dao-voting-program", () => {
 
   const [rewardVoterPda] = anchor.web3.PublicKey.findProgramAddressSync(
     [
-      Buffer.from(anchor.utils.bytes.utf8.encode("voter_account")),
+      Buffer.from(anchor.utils.bytes.utf8.encode('voter_account')),
       wallet.publicKey.toBuffer(),
     ],
     program.programId
   );
 
-  it("Creates Proposal!", async () => {
+  it('Creates Proposal!', async () => {
     let tx = await program.methods
       .createProposal(proposal.title, proposal.description)
       .rpc();
@@ -52,7 +52,7 @@ describe("dao-voting-program", () => {
       `);
   });
 
-  it("gives vote", async () => {
+  it('gives vote', async () => {
     let tx = await program.methods.vote(proposal.title, true).rpc();
 
     const account = await program.account.proposal.fetch(proposalPda);
@@ -73,7 +73,7 @@ describe("dao-voting-program", () => {
       `);
   });
 
-  it("rewards voter", async () => {
+  it('rewards voter', async () => {
     let tx = await program.methods.rewardParticipation(wallet.publicKey).rpc();
 
     const account2 = await program.account.voter.fetch(rewardVoterPda);
