@@ -11,7 +11,7 @@ dao_voting_program = "524gmFHLWsU7hCyjEJP1YNJoGgd3D6piYfaig28ZeiZf"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Localnet"
+cluster = "Devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
